@@ -1,0 +1,10 @@
+package: github.com/jkunii/go-list
+import:
+- package: github.com/labstack/echo
+  version: v3.3.7
+  subpackages:
+  - '...'
+- package: github.com/Sirupsen/logrus
+  version: v1.2.0
+- package: gopkg.in/caarlos0/env.v2
+  version: v3.5.0

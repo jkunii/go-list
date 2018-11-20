@@ -1,0 +1,49 @@
+hash: 1afefc4181342dbb2e5128cd340e9a4524ca7997ec06ec42352c133f7215920e
+updated: 2018-11-20T16:00:22.170355-02:00
+imports:
+- name: github.com/dgrijalva/jwt-go
+  version: 3af4c746e1c248ee8491a3e0c6f7a9cd831e95f8
+- name: github.com/dimiro1/banner
+  version: c2f858997d49ffd03f84818bef3c25c2fcc67e16
+- name: github.com/facebookgo/inject
+  version: f23751cae28bef101a38b79266785d3b574cf7e8
+- name: github.com/facebookgo/structtag
+  version: 217e25fb96916cc60332e399c9aa63f5c422ceed
+- name: github.com/konsorten/go-windows-terminal-sequences
+  version: 5c8c8bd35d3832f5d134ae1e1e375b69a4d25242
+- name: github.com/labstack/echo
+  version: 2e9f4ea4e010fa328318107ba074b1b72381c571
+  subpackages:
+  - '...'
+  - middleware
+- name: github.com/labstack/gommon
+  version: 7fd9f68ece0bcb1a905fac8f1549f0083f71c51b
+  subpackages:
+  - bytes
+  - color
+  - log
+  - random
+- name: github.com/mattn/go-colorable
+  version: efa589957cd060542a26d2dd7832fd6a6c6c3ade
+- name: github.com/mattn/go-isatty
+  version: 3fb116b820352b7f0c281308a4d6250c22d94e27
+- name: github.com/Sirupsen/logrus
+  version: bcd833dfe83d3cebad139e4a29ed79cb2318bf95
+- name: github.com/valyala/bytebufferpool
+  version: cdfbe9377474227bb42120c1e22fd4433e7f69bf
+- name: github.com/valyala/fasttemplate
+  version: dcecefd839c4193db0d35b88ec65b4c12d360ab0
+- name: golang.org/x/crypto
+  version: 3d3f9f413869b949e48070b5bc593aa22cc2b8f2
+  subpackages:
+  - acme
+  - acme/autocert
+  - ssh/terminal
+- name: golang.org/x/sys
+  version: ec83556a53fe16b65c452a104ea9d1e86a671852
+  subpackages:
+  - unix
+  - windows
+- name: gopkg.in/caarlos0/env.v2
+  version: 518fcfb943252f77846f92ce5794086d9cb4a1b5
+testImports: []
