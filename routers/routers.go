@@ -8,7 +8,7 @@ import (
 )
 
 type ApplicationRouter struct {
-	List         *resource.ListResource         `inject:""`
+	Property         *resource.PropertyResource         `inject:""`
 
 }
 
@@ -28,6 +28,6 @@ func (r ApplicationRouter) Init(e *echo.Echo) {
 		return false, nil
 	}))
 
-	g.GET("/list", r.List.Get)
+	g.GET("/list", r.Property.Get)
 
 }
