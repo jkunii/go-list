@@ -21,7 +21,7 @@ type Config struct {
 
 var (
 	Cfg    Config
-	logger = logrus.New()
+	Logger = logrus.New()
 )
 
 func (r Config) Init() {
@@ -34,32 +34,32 @@ func (r Config) Init() {
 
 	//Logger
 	if Cfg.LogFormater == "json" {
-		logger.Formatter = new(logrus.JSONFormatter)
+		Logger.Formatter = new(logrus.JSONFormatter)
 	} else {
-		logger.Formatter = new(logrus.TextFormatter) // default
+		Logger.Formatter = new(logrus.TextFormatter) // default
 	}
 
-	logger.Level, err = logrus.ParseLevel(Cfg.LogLevelType)
+	Logger.Level, err = logrus.ParseLevel(Cfg.LogLevelType)
 	helper.PanicErr(err)
 
 }
 
 func Info(args ...interface{}) {
-	logger.Info(args...)
+	Logger.Info(args...)
 }
 
 func Debug(args ...interface{}) {
-	logger.Debug(args...)
+	Logger.Debug(args...)
 }
 
 func Warning(args ...interface{}) {
-	logger.Warning(args...)
+	Logger.Warning(args...)
 }
 
 func Error(args ...interface{}) {
-	logger.Error(args...)
+	Logger.Error(args...)
 }
 
 func LogLevel() logrus.Level {
-	return logger.Level
+	return Logger.Level
 }
