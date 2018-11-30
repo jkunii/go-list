@@ -8,9 +8,9 @@ import (
 	"github.com/labstack/echo"
 )
 
-func (tt PropertyResource) Get(c echo.Context) error {
+func (tt AnnouncementResource) Get(c echo.Context) error {
 
-	p, err := service.GetProperties()
+	p, err := service.AdList("a")
 	if err != nil {
 		global.Error(err)
 	}
@@ -18,5 +18,5 @@ func (tt PropertyResource) Get(c echo.Context) error {
 	return c.JSON(http.StatusOK, p)
 }
 
-type PropertyResource struct {
+type AnnouncementResource struct {
 }

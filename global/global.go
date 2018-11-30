@@ -9,14 +9,14 @@ import (
 )
 
 type Config struct {
-	ServerDomain               string `env:"SERVER_DOMAIN" envDefault:"http://localhost:1323"`
-	LogLevel                   int    `env:"LOG_LEVEL" envDefault:"5"`
-	Port                       string `env:"PORT" envDefault:"1323"`
-	ShowBanner                 bool   `env:"SHOW_BANNER" envDefault:"false"`
-	LogLevelType               string `env:"LOG_LEVEL_TYPE" envDefault:"debug"`
-	LogFormater                string `env:"LOG_FORMATER" envDefault:"txt"`
-	UserName                   string `env:"BAISC_USER" envDefault:"123"`
-	Secret                     string `env:"BASIC_SECRET" envDefault:"123"`
+	ServerDomain string `env:"SERVER_DOMAIN" envDefault:"http://localhost:1323"`
+	LogLevel     int    `env:"LOG_LEVEL" envDefault:"5"`
+	Port         string `env:"PORT" envDefault:"1323"`
+	ShowBanner   bool   `env:"SHOW_BANNER" envDefault:"false"`
+	LogLevelType string `env:"LOG_LEVEL_TYPE" envDefault:"debug"`
+	LogFormater  string `env:"LOG_FORMATER" envDefault:"txt"`
+	UserName     string `env:"BAISC_USER" envDefault:"123"`
+	Secret       string `env:"BASIC_SECRET" envDefault:"123"`
 }
 
 var (

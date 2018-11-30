@@ -1,15 +1,14 @@
 package routers
 
 import (
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
 	"github.com/jkunii/go-list/global"
 	"github.com/jkunii/go-list/resource"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 type ApplicationRouter struct {
-	Property         *resource.PropertyResource         `inject:""`
-
+	Announcement *resource.AnnouncementResource `inject:""`
 }
 
 func (r ApplicationRouter) Init(e *echo.Echo) {
@@ -28,6 +27,6 @@ func (r ApplicationRouter) Init(e *echo.Echo) {
 		return false, nil
 	}))
 
-	g.GET("/list", r.Property.Get)
+	g.GET("/list", r.Announcement.Get)
 
 }

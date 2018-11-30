@@ -1,6 +1,7 @@
 package service
 
 import (
+	"log"
 	"net/http"
 
 	"encoding/json"
@@ -8,41 +9,50 @@ import (
 	"github.com/jkunii/go-list/global"
 )
 
-var url = "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2.json"
+var (
+	data []Property
+	url  = "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2.json"
+)
 
 func GetProperties() ([]Property, error) {
+	if data != nil {
+		log.Println("##########")
 
-	res, err := http.Get(url)
-	if err != nil {
-		global.Error(err)
+		log.Println("Announcement already populated.")
+
+		return data, nil
+
+	} else {
+		log.Println("$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
+		log.Println("Announcement not populated.")
+		res, err := http.Get(url)
+		if err != nil {
+			global.Error(err)
+		}
+		defer res.Body.Close()
+
+		decoder := json.NewDecoder(res.Body)
+
+		err = decoder.Decode(&data)
 	}
-	defer res.Body.Close()
-
-	decoder := json.NewDecoder(res.Body)
-	var data []Property
-	err = decoder.Decode(&data)
-
 	return data, nil
 }
 
 type (
 	Property struct {
-		ID            string `json:"id"`
-		ListingType   string `json:"listingType"`
-		ListingStatus string `json:"listingStatus"`
-
-		ParkingSpaces string   `json:"parkingSpaces"`
+		ID            string   `json:"id"`
+		ListingType   string   `json:"listingType"`
+		ListingStatus string   `json:"listingStatus"`
+		UsableAreas   string   `json:"usableAreas"`
+		ParkingSpaces int      `json:"parkingSpaces"`
 		Owner         string   `json:"owner"`
 		Images        []string `json:"images"`
 		Address       Address  `json:"address"`
 		Bathrooms     int      `json:"bathrooms"`
 		Bedrooms      int      `json:"bedrooms"`
 		CreatedAt     string   `json:"createdAt"`
-		updatedAt     string   `json:"updatedAt"`
-
-		TotalCount int `json:"totalCount"`
-		PageNumber int `json:"pageNumber"`
-		PageSize   int `json:"pageSize"`
+		UpdatedAt     string   `json:"updatedAt"`
 	}
 
 	Address struct {
