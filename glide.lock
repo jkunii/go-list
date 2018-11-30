@@ -1,5 +1,5 @@
 hash: 1afefc4181342dbb2e5128cd340e9a4524ca7997ec06ec42352c133f7215920e
-updated: 2018-11-20T16:00:22.170355-02:00
+updated: 2018-11-29T17:26:43.752325288-02:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: 3af4c746e1c248ee8491a3e0c6f7a9cd831e95f8
@@ -34,13 +34,13 @@ imports:
 - name: github.com/valyala/fasttemplate
   version: dcecefd839c4193db0d35b88ec65b4c12d360ab0
 - name: golang.org/x/crypto
-  version: 3d3f9f413869b949e48070b5bc593aa22cc2b8f2
+  version: eb0de9b17e854e9b1ccd9963efafc79862359959
   subpackages:
   - acme
   - acme/autocert
   - ssh/terminal
 - name: golang.org/x/sys
-  version: ec83556a53fe16b65c452a104ea9d1e86a671852
+  version: 4ed8d59d0b35e1e29334a206d1b3f38b1e5dfb31
   subpackages:
   - unix
   - windows
