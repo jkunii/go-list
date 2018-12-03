@@ -2,6 +2,7 @@ package resource
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/jkunii/go-list/global"
 	"github.com/jkunii/go-list/service"
@@ -10,7 +11,11 @@ import (
 
 func (tt AnnouncementResource) Get(c echo.Context) error {
 
-	p, err := service.AdList("a")
+	groupType := c.QueryParam("type")
+	offSet, _ := strconv.Atoi(c.QueryParam("offSet"))
+	limitPerPage, _ := strconv.Atoi(c.QueryParam("limit"))
+	orderByPrice := c.QueryParam("orderByPrice")
+	p, err := service.AdList(groupType, orderByPrice, offSet, limitPerPage)
 	if err != nil {
 		global.Error(err)
 	}

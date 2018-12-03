@@ -6,16 +6,17 @@ var (
 	ann Announcement
 )
 
-func AdList(GroupType string) (Announcement, error) {
+func AdList(groupType, orderByPrice string, offSet, limitPerPage int) (Announcement, error) {
 
-	props, err := GetProperties()
-	log.Println("##########")
+	props, err := GetProperties(groupType, orderByPrice, offSet, limitPerPage)
 
 	if err != nil {
 		log.Println("Error found.")
 	} else {
 		ann.Properties = props
 		ann.Attr.Total = len(props)
+		ann.Attr.PerPage = 2
+		ann.Attr.PageSize = 0
 	}
 	return ann, nil
 }

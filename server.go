@@ -4,14 +4,16 @@ import (
 	"os"
 
 	"github.com/dimiro1/banner"
-	"github.com/labstack/echo"
 	"github.com/jkunii/go-list/global"
 	"github.com/jkunii/go-list/helper"
 	"github.com/jkunii/go-list/routers"
+	s "github.com/jkunii/go-list/service"
+	"github.com/labstack/echo"
 
 	"github.com/facebookgo/inject"
 	mw "github.com/labstack/echo/middleware"
 )
+
 var (
 	version string
 )
@@ -45,7 +47,7 @@ func main() {
 	if global.Cfg.ShowBanner {
 		showBanner()
 	}
-
+	go s.GetProperties("", "", 0, 1)
 	e := echo.New()
 
 	// Middleware

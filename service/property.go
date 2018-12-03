@@ -1,8 +1,8 @@
 package service
 
 import (
-	"log"
 	"net/http"
+	"sort"
 
 	"encoding/json"
 
@@ -10,49 +10,104 @@ import (
 )
 
 var (
-	data []Property
-	url  = "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2.json"
+	data            []Property
+	url             = "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2.json"
+	limitPerPage    = 50       // default
+	offSet          = 0        // default
+	sale_property   []Property // sale
+	rental_property []Property // rental
 )
 
-func GetProperties() ([]Property, error) {
-	if data != nil {
-		log.Println("##########")
+//USED | NEW
+func SortByType(property []Property, types string) ([]Property, error) {
 
-		log.Println("Announcement already populated.")
+	return property, nil
+}
 
-		return data, nil
+// SALE | RENTAL
+func SliceBybusinessType(property []Property, groupType string) ([]Property, error) {
+	for _, element := range property {
+		if element.PricingInfos.BusinessType == "SALE" {
+			sale_property = append(sale_property, element)
+		}
+		if element.PricingInfos.BusinessType == "RENTAL" {
+			rental_property = append(rental_property, element)
+		}
+	}
 
+	if groupType == "SALE" {
+		return sale_property, nil
 	} else {
-		log.Println("$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+		return rental_property, nil
+	}
 
-		log.Println("Announcement not populated.")
+}
+
+// Price by asc
+func SortByPriceAsc(property []Property) ([]Property, error) {
+	sort.Slice(property, func(i, j int) bool {
+		return property[i].PricingInfos.Price < property[j].PricingInfos.Price
+	})
+	return property, nil
+}
+
+// Price by desc
+func SortByPriceDesc(property []Property) ([]Property, error) {
+	sort.Slice(property, func(i, j int) bool {
+		return property[i].PricingInfos.Price > property[j].PricingInfos.Price
+	})
+	return property, nil
+}
+
+func GetPropertiesByPagination(property []Property, offSet, limitPerPage int) ([]Property, error) {
+	var sm []Property
+	for i := 0; i < limitPerPage; i++ {
+		// log.Println("########### offSet ###########")
+		// log.Println(offSet)
+		// log.Println(property[offSet].ID)
+		sm = append(sm, property[offSet])
+		offSet++
+	}
+	return sm, nil
+}
+
+func GetProperties(groupType, orderByPrice string, offSet, limitPerPage int) ([]Property, error) {
+	var smp []Property
+
+	if data == nil {
 		res, err := http.Get(url)
 		if err != nil {
 			global.Error(err)
 		}
 		defer res.Body.Close()
-
 		decoder := json.NewDecoder(res.Body)
-
 		err = decoder.Decode(&data)
 	}
-	return data, nil
+
+	propertyByBusinessType, _ := SliceBybusinessType(data, groupType)
+	smp, _ = GetPropertiesByPagination(propertyByBusinessType, offSet, limitPerPage)
+	ppp, _ := SortByPriceAsc(smp)
+	if orderByPrice == "desc" {
+		ppp, _ = SortByPriceDesc(smp)
+	}
+	return ppp, nil
 }
 
 type (
 	Property struct {
-		ID            string   `json:"id"`
-		ListingType   string   `json:"listingType"`
-		ListingStatus string   `json:"listingStatus"`
-		UsableAreas   string   `json:"usableAreas"`
-		ParkingSpaces int      `json:"parkingSpaces"`
-		Owner         string   `json:"owner"`
-		Images        []string `json:"images"`
-		Address       Address  `json:"address"`
-		Bathrooms     int      `json:"bathrooms"`
-		Bedrooms      int      `json:"bedrooms"`
-		CreatedAt     string   `json:"createdAt"`
-		UpdatedAt     string   `json:"updatedAt"`
+		ID            string       `json:"id"`
+		ListingType   string       `json:"listingType"`
+		ListingStatus string       `json:"listingStatus"`
+		UsableAreas   string       `json:"usableAreas"`
+		ParkingSpaces int          `json:"parkingSpaces"`
+		Owner         string       `json:"owner"`
+		Images        []string     `json:"images"`
+		Address       Address      `json:"address"`
+		Bathrooms     int          `json:"bathrooms"`
+		Bedrooms      int          `json:"bedrooms"`
+		PricingInfos  PricingInfos `json:"pricingInfos"`
+		CreatedAt     string       `json:"createdAt"`
+		UpdatedAt     string       `json:"updatedAt"`
 	}
 
 	Address struct {
