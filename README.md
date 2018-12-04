@@ -10,6 +10,7 @@ This Project use some technologies like:
 * [Glide] - Vendor Package Management for Golang
 * [Echo] - High performance, extensible, minimalist Go web framework
 * [Swagger] - Swagger open source and pro tools have helped millions of API developers, teams, and organizations deliver great APIs.
+* [Docker] - BUILD, SHIP, RUN
 
 
 ### Instal Dependencies with glide
@@ -22,9 +23,18 @@ $ glide up -u -s
 $ go run server.go
 ```
 
-### Todos
- - Start Code
+### call Example 
+```request
+$ example:
+/api/list?venture=ZAP&type=RENTAL&offSet=0&limit=50&orderByPrice=desc
+```
+
+### To do
+ - Include Docker
+ - Include FileBeat for logs
  - Write Tests
+ - Documentation
+ - Production Mode
  - Architecture
 
 License
@@ -43,3 +53,4 @@ mom
    [Glide]: <https://github.com/Masterminds/glide>
    [Swagger]: <https://swagger.io/>
    [Echo]: <https://echo.labstack.com>
+   [Docker]: <https://www.docker.com/>

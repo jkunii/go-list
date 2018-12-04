@@ -72,7 +72,7 @@ func GetPropertiesByPagination(property []Property, offSet, limitPerPage int) ([
 	return sm, nil
 }
 
-func GetProperties(venture, groupType, orderByPrice string, offSet, limitPerPage int) ([]Property, error) {
+func GetProperties(venture, groupType, orderByPrice string, offSet, limitPerPage int) ([]Property, int, error) {
 	var smp []Property
 
 	if data == nil {
@@ -93,7 +93,7 @@ func GetProperties(venture, groupType, orderByPrice string, offSet, limitPerPage
 		ppp, _ = SortByPriceDesc(smp)
 	}
 
-	return ppp, nil
+	return ppp, len(data), nil
 }
 
 func groupVentureByGroupType(venture, groupType string, property []Property) ([]Property, error) {
