@@ -6,9 +6,9 @@ var (
 	ann Announcement
 )
 
-func AdList(groupType, orderByPrice string, offSet, limitPerPage int) (Announcement, error) {
+func AdList(venture, groupType, orderByPrice string, offSet, limitPerPage int) (Announcement, error) {
 
-	props, err := GetProperties(groupType, orderByPrice, offSet, limitPerPage)
+	props, err := GetProperties(venture, groupType, orderByPrice, offSet, limitPerPage)
 
 	if err != nil {
 		log.Println("Error found.")

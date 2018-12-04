@@ -3,6 +3,7 @@ package service
 import (
 	"net/http"
 	"sort"
+	"strconv"
 
 	"encoding/json"
 
@@ -16,13 +17,13 @@ var (
 	offSet          = 0        // default
 	sale_property   []Property // sale
 	rental_property []Property // rental
+	zapRentalMin int = 3500
+	zapSaleMin int = 600000
+
+	vivaRentalMax int = 4000
+	vivaSaleMax int = 700000
+
 )
-
-//USED | NEW
-func SortByType(property []Property, types string) ([]Property, error) {
-
-	return property, nil
-}
 
 // SALE | RENTAL
 func SliceBybusinessType(property []Property, groupType string) ([]Property, error) {
@@ -71,7 +72,7 @@ func GetPropertiesByPagination(property []Property, offSet, limitPerPage int) ([
 	return sm, nil
 }
 
-func GetProperties(groupType, orderByPrice string, offSet, limitPerPage int) ([]Property, error) {
+func GetProperties(venture, groupType, orderByPrice string, offSet, limitPerPage int) ([]Property, error) {
 	var smp []Property
 
 	if data == nil {
@@ -85,12 +86,57 @@ func GetProperties(groupType, orderByPrice string, offSet, limitPerPage int) ([]
 	}
 
 	propertyByBusinessType, _ := SliceBybusinessType(data, groupType)
-	smp, _ = GetPropertiesByPagination(propertyByBusinessType, offSet, limitPerPage)
+	groupProp, _ := groupVentureByGroupType(venture, groupType, propertyByBusinessType)
+	smp, _ = GetPropertiesByPagination(groupProp, offSet, limitPerPage)
 	ppp, _ := SortByPriceAsc(smp)
 	if orderByPrice == "desc" {
 		ppp, _ = SortByPriceDesc(smp)
 	}
+
 	return ppp, nil
+}
+
+func groupVentureByGroupType(venture, groupType string, property []Property) ([]Property, error) {
+	var gProp []Property
+	if groupType == "RENTAL" {
+		if venture == "ZAP" {
+			for _, element := range property {
+				price, _ := strconv.Atoi(element.PricingInfos.RentalTotalPrice)
+				if  price > zapRentalMin {
+						gProp = append(gProp, element)
+				}
+			}	
+		}
+		if venture == "VIVAREAL" {
+			for _, element := range property {
+				price, _ := strconv.Atoi(element.PricingInfos.RentalTotalPrice)
+				if price <= vivaRentalMax {
+					gProp = append(gProp, element)
+				}
+			}
+		}
+	}
+
+	if groupType == "SALE" {
+		if venture == "ZAP" {
+			for _, element := range property {
+				price, _ := strconv.Atoi(element.PricingInfos.Price)
+				if price > zapSaleMin {
+						gProp = append(gProp, element)
+				}
+			}	
+		}
+		if venture == "VIVAREAL" {
+			for _, element := range property {
+				price, _ := strconv.Atoi(element.PricingInfos.Price)
+				if price <= vivaSaleMax {
+					gProp = append(gProp, element)
+				}
+			}
+		}
+	}
+
+	return gProp, nil
 }
 
 type (
@@ -127,8 +173,10 @@ type (
 	}
 
 	PricingInfos struct {
+		Period string `json:"period"`
 		YearlyIptu      string `json:"yearlyIptu"`
 		Price           string `json:"price"`
+		RentalTotalPrice string `json:"rentalTotalPrice"`
 		BusinessType    string `json:"businessType"`
 		MonthlyCondoFee string `json:"monthlyCondoFee"`
 	}

@@ -10,12 +10,44 @@
                 "description": "Gets `list` objects.\nOptional query param of **size** determines\nsize of returned array\n",
                 "parameters": [
                     {
-                        "name": "size",
+                        "name": "venture",
                         "in": "query",
-                        "description": "Size of array",
+                        "description": "venture name",
+                        "required": true,
+                        "type": "string",
+                        "format": "ZAP | VIVAREAL"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "type",
+                        "required": true,
+                        "type": "string",
+                        "format": "RENTAL | SALE"
+                    },
+                    {
+                        "name": "offSet",
+                        "in": "query",
+                        "description": "start data",
                         "required": true,
                         "type": "number",
                         "format": "double"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit per page",
+                        "required": true,
+                        "type": "number",
+                        "format": "double"
+                    },
+                    {
+                        "name": "orderByPrice",
+                        "in": "query",
+                        "description": "Order by Price",
+                        "required": true,
+                        "type": "number",
+                        "format": "ASC | DESC"
                     }
                 ],
                 "responses": {

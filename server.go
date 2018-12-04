@@ -47,7 +47,7 @@ func main() {
 	if global.Cfg.ShowBanner {
 		showBanner()
 	}
-	go s.GetProperties("", "", 0, 1)
+	go s.GetProperties("ZAP", "RENTAL", "asc", 0, 1)
 	e := echo.New()
 
 	// Middleware

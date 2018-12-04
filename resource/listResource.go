@@ -11,11 +11,12 @@ import (
 
 func (tt AnnouncementResource) Get(c echo.Context) error {
 
+	venture := c.QueryParam("venture")
 	groupType := c.QueryParam("type")
 	offSet, _ := strconv.Atoi(c.QueryParam("offSet"))
 	limitPerPage, _ := strconv.Atoi(c.QueryParam("limit"))
 	orderByPrice := c.QueryParam("orderByPrice")
-	p, err := service.AdList(groupType, orderByPrice, offSet, limitPerPage)
+	p, err := service.AdList(venture, groupType, orderByPrice, offSet, limitPerPage)
 	if err != nil {
 		global.Error(err)
 	}
