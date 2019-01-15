@@ -23,6 +23,16 @@ $ glide up -u -s
 $ go run server.go
 ```
 
+### Build Docker Project
+```sh
+$ docker build -t [image_name]:[version/tag] .
+```
+
+### Run Project using docker
+```sh
+$ docker run -p 1323:1323 --name=[container_name] -d  [image_name]
+```
+
 ### call Example 
 ```request
 $ example:
@@ -30,12 +40,9 @@ $ example:
 ```
 
 ### To do
- - Include Docker
  - Include FileBeat for logs
  - Write Tests
  - Documentation
- - Production Mode
- - Architecture
 
 License
 ----
